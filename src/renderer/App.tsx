@@ -1,50 +1,64 @@
-import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
-import icon from '../../assets/icon.svg';
-import './App.css';
+// src/renderer/src/App.tsx
+import React, { useState } from 'react';
+import { textToMorse, morseToText } from '../main/morse'; // Import các hàm từ file utils
+import './App.css'; // Import file CSS (sẽ tạo ở bước sau)
 
-function Hello() {
+function App(): JSX.Element {
+  const [inputText, setInputText] = useState<string>('');
+  const [outputText, setOutputText] = useState<string>('');
+  const [mode, setMode] = useState<'encode' | 'decode'>('encode'); // Lưu trữ chế độ hiện tại
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setInputText(event.target.value);
+    // Tự động xóa kết quả khi input thay đổi
+    setOutputText('');
+  };
+
+  const handleEncode = () => {
+    setMode('encode');
+    setOutputText(textToMorse(inputText));
+  };
+
+  const handleDecode = () => {
+    setMode('decode');
+    // Cần chuẩn hóa input Morse một chút (loại bỏ khoảng trắng thừa)
+    const cleanedInput = inputText.trim().replace(/ +/g, ' ');
+    setOutputText(morseToText(cleanedInput));
+  };
+
   return (
-    <div>
-      <div className="Hello">
-        <img width="200" alt="icon" src={icon} />
+    <div className="container">
+      <h1>Morse Code Translator</h1>
+
+      <div className="input-section">
+        <label htmlFor="morse-input">Nhập văn bản hoặc mã Morse:</label>
+        <textarea
+          id="morse-input"
+          value={inputText}
+          onChange={handleInputChange}
+          rows={5}
+          placeholder="Nhập ở đây..."
+        />
       </div>
-      <h1>electron-react-boilerplate</h1>
-      <div className="Hello">
-        <a
-          href="https://electron-react-boilerplate.js.org/"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <button type="button">
-            <span role="img" aria-label="books">
-              📚
-            </span>
-            Read our docs
-          </button>
-        </a>
-        <a
-          href="https://github.com/sponsors/electron-react-boilerplate"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <button type="button">
-            <span role="img" aria-label="folded hands">
-              🙏
-            </span>
-            Donate
-          </button>
-        </a>
+
+      <div className="button-section">
+        <button onClick={handleEncode}>Mã hóa sang Morse</button>
+        <button onClick={handleDecode}>Giải mã từ Morse</button>
+      </div>
+
+      <div className="output-section">
+        <label htmlFor="morse-output">Kết quả ({mode === 'encode' ? 'Morse' : 'Văn bản'}):</label>
+        <textarea
+          id="morse-output"
+          value={outputText}
+          readOnly // Kết quả chỉ để đọc
+          rows={5}
+          placeholder="Kết quả sẽ hiển thị ở đây..."
+          className={mode === 'encode' ? 'morse-output' : 'text-output'}
+        />
       </div>
     </div>
   );
 }
 
-export default function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Hello />} />
-      </Routes>
-    </Router>
-  );
-}
+export default App;

@@ -1,62 +1,84 @@
-/*
- * @NOTE: Prepend a `~` to css file paths that are in your node_modules
- *        See https://github.com/webpack-contrib/sass-loader#imports
- */
+/* src/renderer/src/App.css hoặc index.css */
 body {
-  position: relative;
-  color: white;
-  height: 100vh;
-  background: linear-gradient(
-    200.96deg,
-    #fedc2a -29.09%,
-    #dd5789 51.77%,
-    #7a2c9e 129.35%
-  );
   font-family: sans-serif;
-  overflow-y: hidden;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 100vh;
+}
+
+.container {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
+}
+
+h1 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  color: #555;
+  font-weight: bold;
+  text-align: left;
+}
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; /* Để padding không làm tăng kích thước */
+  font-size: 1rem;
+  resize: vertical; /* Cho phép thay đổi kích thước theo chiều dọc */
+}
+
+.button-section {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 15px; /* Khoảng cách giữa các nút */
 }
 
 button {
-  background-color: white;
   padding: 10px 20px;
-  border-radius: 10px;
+  background-color: #007bff;
+  color: white;
   border: none;
-  appearance: none;
-  font-size: 1.3rem;
-  box-shadow: 0px 8px 28px -6px rgba(24, 39, 75, 0.12),
-    0px 18px 88px -4px rgba(24, 39, 75, 0.14);
-  transition: all ease-in 0.1s;
+  border-radius: 4px;
   cursor: pointer;
-  opacity: 0.9;
+  font-size: 1rem;
+  transition: background-color 0.2s ease;
 }
 
 button:hover {
-  transform: scale(1.05);
-  opacity: 1;
+  background-color: #0056b3;
 }
 
-li {
-  list-style: none;
+button:active {
+    background-color: #004085;
 }
 
-a {
-  text-decoration: none;
-  height: fit-content;
-  width: fit-content;
-  margin: 10px;
+.output-section textarea {
+  background-color: #e9ecef;
+  font-family: 'Courier New', Courier, monospace; /* Font cho mã morse dễ nhìn */
 }
 
-a:hover {
-  opacity: 1;
-  text-decoration: none;
+.morse-output {
+  color: blue;
 }
 
-.Hello {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 20px 0;
+.text-output {
+  color: green;
 }
